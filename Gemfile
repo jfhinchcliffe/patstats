@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'forecast.io'
+gem 'forecast_io'
 gem 'figaro'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
