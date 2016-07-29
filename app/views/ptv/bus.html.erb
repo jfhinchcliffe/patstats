@@ -1,0 +1,34 @@
+<h1>Ptv#bus</h1>
+<% @another.each do |r| %>
+<p><%= r %></p>
+<% end %>
+<p>Find me in app/views/ptv/bus.html.erb</p>
+
+<% @getting_real_time["values"].each do |k| %>
+  <%= k %>
+    <% k["platform"].each do |p| %>
+      <%if p[0] == "stop" %>
+        <p><b>Location Name:</b> <%= p[1].dig("location_name") %></p>
+        <p><b>Transport Type:</b> <%= p[1].dig("transport_type") %></p>
+      <% end %>
+      <%if p[0] == "direction" %>
+        <% p[1].each do |pr| %>
+          <% if pr[0] == "line" %>
+            <p><b>Line Name:</b> <%= pr[1].dig("line_name") %></p>
+          <% end %>
+          
+        <% end %> 
+      <% end %>  
+    <% end %>
+    <% k.each do |j| %>
+      <% if j[0]== "time_realtime_utc" %></p>
+          <p><b>Realtime:</b> <%= j[1] %>
+          <% if j[1] == nil %>
+            No Realtime
+          <% end %>  
+        <% end %>  
+    <% end %>  
+<hr>
+<% end %>
+
+

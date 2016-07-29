@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'ptv/bus'
+
+  get 'ptv/tram'
+
+  get 'ptv/train'
+
   get 'forecast/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
