@@ -23,31 +23,31 @@ class PtvController < ApplicationController
   
   def get_mode_and_route_information(api_info)
     all_route_info_array = []
-    api_info["values"].each do |k|
+    api_info["values"].each do |values_level|
       route_hash = Hash.new
-      route_hash[:run_id] = k.dig("run", "run_id")
-      route_hash[:direction] = k.dig("platform", "direction", "direction_name")
-      k["platform"].each do |p|
-        if p[0] == "stop"
-          route_hash[:location_name] = p[1].dig("location_name")
-          route_hash[:transport_type] = p[1].dig("transport_type")
+      route_hash[:run_id] = values_level.dig("run", "run_id")
+      route_hash[:direction] = values_level.dig("platform", "direction", "direction_name")
+      values_level["platform"].each do |platform_level|
+        if platform_level[0] == "stop"
+          route_hash[:location_name] = platform_level[1].dig("location_name")
+          route_hash[:transport_type] = platform_level[1].dig("transport_type")
         end
-        if p[0] == "direction"
-          p[1].each do |pr|
-            if pr[0] == "line"
-              route_hash[:line_number] = pr[1].dig("line_number")
-              route_hash[:line_name] = pr[1].dig("line_name")
+        if platform_level[0] == "direction"
+          platform_level[1].each do |direction_level|
+            if direction_level[0] == "line"
+              route_hash[:line_number] = direction_level[1].dig("line_number")
+              route_hash[:line_name] = direction_level[1].dig("line_name")
             end
           end 
         end 
       end
-      k.each do |j|
-        if j[0]== "time_realtime_utc"
-          if j[1] == nil
+      values_level.each do |time_level|
+        if time_level[0]== "time_realtime_utc"
+          if time_level[1] == nil
             route_hash[:real_time_value] = "No Realtime"
             route_hash[:real_time_present] = false
           else
-            route_hash[:real_time_value] = j[1]
+            route_hash[:real_time_value] = time_level[1]
             route_hash[:real_time_present] = true
           end  
         end
