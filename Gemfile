@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'forecast_io'
 gem 'figaro'
-
+gem 'rails_12factor'
 #updated version of PTV timetable gem
 gem 'ptv_timetable', github: "alotofnoodles/ptv_timetable"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
