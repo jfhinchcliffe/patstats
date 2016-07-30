@@ -1,15 +1,24 @@
+
 <h1>Ptv#bus</h1>
-<% @another.each do |r| %>
-<p><%= r %></p>
+<% @another.each do |v| %>
+  <% v.each do |k, p| %>
+    <p><b><%= k %>:</b> <%= p %></p>
+  <% end %>
+  <hr>
 <% end %>
+
 <p>Find me in app/views/ptv/bus.html.erb</p>
 
 <% @getting_real_time["values"].each do |k| %>
-  <%= k %>
+  <h1>COUNT: <%= k %></h1>
+  K DIG: <%= k.dig("run", "run_id") %>
+  LOC NAME DIG: <%= k.dig("platform", "direction", "line", "line_name_short") %> 
+  <p><b>Direction:</b> <%= k.dig("platform", "direction", "direction_name") %></p>
     <% k["platform"].each do |p| %>
       <%if p[0] == "stop" %>
         <p><b>Location Name:</b> <%= p[1].dig("location_name") %></p>
         <p><b>Transport Type:</b> <%= p[1].dig("transport_type") %></p>
+        
       <% end %>
       <%if p[0] == "direction" %>
         <% p[1].each do |pr| %>
