@@ -46,9 +46,11 @@ class PtvController < ApplicationController
           if time_level[1] == nil
             route_hash[:real_time_value] = "No Realtime"
             route_hash[:real_time_present] = false
+            route_hash[:countdown_to_arrival] = 'No Countdown'
           else
-            route_hash[:real_time_value] = time_level[1]
+            route_hash[:real_time_value] = Time.parse(time_level[1]).in_time_zone('Melbourne').strftime("%I:%M:%S %p")
             route_hash[:real_time_present] = true
+            route_hash[:countdown_to_arrival] = ((Time.now - Time.parse(time_level[1])) / 60).floor
           end  
         end
       end
