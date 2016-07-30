@@ -1,14 +1,17 @@
 class PtvController < ApplicationController
   def bus
     api = set_api
-    return_rt = api.broad_next_departures(1, 2097)
+    return_rt = api.broad_next_departures(2, 22936)
     
-    @getting_real_time = return_rt
-    @another = get_mode_and_route_information(return_rt)
+    @bus_set = get_mode_and_route_information(return_rt)
     
   end
 
   def tram
+    api = set_api
+    return_rt = api.broad_next_departures(1, 2097)
+    
+    @tram_set = get_mode_and_route_information(return_rt)
   end
 
   def train
