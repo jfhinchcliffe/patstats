@@ -1,8 +1,13 @@
 class ForecastController < ApplicationController
-  def index
+  def weather_check
     @weather_api_call = ForecastIO.forecast(-37.820197, 144.949633, params: { units: 'si' })
     @weather = {'item' => [{'text' => weather_html(@weather_api_call)}]}
     render json: @weather
+  end
+  
+  def index
+    @weather_api_call = ForecastIO.forecast(-37.820197, 144.949633, params: { units: 'si' })
+    @weather = {'item' => [{'text' => weather_html(@weather_api_call)}]}
   end
   
   def weather_html(weather_api_call)

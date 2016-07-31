@@ -1,7 +1,8 @@
-<h1>Forecast#index</h1>
-<p>Find me in app/views/forecast/index.html.erb</p>
+<h3>Weather @750 Collins</h3>
 
-<%= @forecast.currently.temperature %>
-<%= @forecast.currently.summary %>
-
-<%= link_to 'Forecast', forecast_index_path %>
+<p>
+  Current Temperature: <%= @weather_api_call.currently.temperature %>
+</p>
+<p>
+  Current Conditions: <%= @weather_api_call.currently.summary %>  
+</p>
