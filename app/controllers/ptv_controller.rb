@@ -53,7 +53,7 @@ class PtvController < ApplicationController
     if realtime_percentage <= 40
       sentiment_colour = 'negative'
     elsif realtime_percentage > 40 && realtime_percentage <= 70
-      sentiment_colour = ""
+      sentiment_colour = ''
     elsif realtime_percentage > 70
       sentiment_colour = 'positive'
     end
