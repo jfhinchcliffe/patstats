@@ -1,0 +1,20 @@
+<table border='1'>
+  <th>Stop Location Name</th>
+  <th>Line Number</th>
+  <th>Line Name</th>
+  <th>Run ID</th>
+  <th>Real Time Working?</th>
+  <th>Real Time Value</th>
+  <th>Minutes to Arrival</th>
+  <% @all_stop_services.each do |v| %>
+    <tr>
+      <td><%= v[:location_name] %></td>
+      <td><%= v[:line_number] %></td>
+      <td><%= v[:line_name] %></td>
+      <td><%= v[:run_id] %></td>
+      <td><%= v[:real_time_present] %></td>
+      <td><%= v[:real_time_value] %></td>
+      <td><%= v[:countdown_to_arrival] %></td>
+    </tr>
+  <% end %>
+</table>

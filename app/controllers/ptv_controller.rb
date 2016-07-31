@@ -3,7 +3,7 @@ class PtvController < ApplicationController
     api = set_api
     return_rt = api.broad_next_departures(2, 22936)
     
-    @bus_set = get_mode_and_route_information(return_rt)
+    @all_stop_services = get_mode_and_route_information(return_rt)
     
   end
 
@@ -11,7 +11,7 @@ class PtvController < ApplicationController
     api = set_api
     return_rt = api.broad_next_departures(1, 2097)
     
-    @tram_set = get_mode_and_route_information(return_rt)
+    @all_stop_services = get_mode_and_route_information(return_rt)
   end
 
   def train
