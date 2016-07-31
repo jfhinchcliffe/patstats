@@ -33,10 +33,31 @@ class PtvController < ApplicationController
   def tram_check
     api = set_api
     return_rt = api.broad_next_departures(1, 2097)
-    
     @all_stop_services = get_mode_and_route_information(return_rt)
     @realtime_percentage = get_realtime_percentage(@all_stop_services)
-    render json: @realtime_percentage
+    @formatted = board_response_html(@realtime_percentage, "Tram")
+    render json: @formatted
+  end
+  
+  def bus_check
+    api = set_api
+    return_rt = api.broad_next_departures(2, 22936)
+    @all_stop_services = get_mode_and_route_information(return_rt)
+    @realtime_percentage = get_realtime_percentage(@all_stop_services)
+    @formatted = board_response_html(@realtime_percentage, "Bus")
+    render json: @formatted
+  end
+  
+  def board_response_html(realtime_percentage, mode)
+    sentiment_colour = ""
+    if realtime_percentage <= 40
+      sentiment_colour = 'negative'
+    elsif realtime_percentage > 40 && realtime_percentage <= 70
+      sentiment_colour = ""
+    elsif realtime_percentage > 70
+      sentiment_colour = 'positive'
+    end
+    {'item' => [{'text' => "<div class='main-stat t-size-x72 #{sentiment_colour}' align='center'>#{realtime_percentage}%</div> <div class='t-size-x20' align='center'>#{mode} RT response %</div>"}]}
   end
 
   def train

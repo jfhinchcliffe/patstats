@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'ptv/bus'
+  get 'ptv/bus_check'
 
   get 'ptv/tram'
   get 'ptv/tram_check'
