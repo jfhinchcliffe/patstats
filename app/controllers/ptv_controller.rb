@@ -4,7 +4,22 @@ class PtvController < ApplicationController
     return_rt = api.broad_next_departures(2, 22936)
     
     @all_stop_services = get_mode_and_route_information(return_rt)
+    @realtime_percentage = get_realtime_percentage(@all_stop_services)
     
+  end
+  
+  def get_realtime_percentage(list_of_services)
+    working_services = 0
+    not_working_services = 0
+    first_5_services = list_of_services.first(5)
+    first_5_services.each do |service|
+      if service[:real_time_present] == true
+        working_services += 1
+      elsif service[:real_time_present] == false
+        not_working_services += 1
+      end
+    end
+    return working_services * 20
   end
 
   def tram
@@ -12,6 +27,16 @@ class PtvController < ApplicationController
     return_rt = api.broad_next_departures(1, 2097)
     
     @all_stop_services = get_mode_and_route_information(return_rt)
+    @realtime_percentage = get_realtime_percentage(@all_stop_services)
+  end
+  
+  def tram_check
+    api = set_api
+    return_rt = api.broad_next_departures(1, 2097)
+    
+    @all_stop_services = get_mode_and_route_information(return_rt)
+    @realtime_percentage = get_realtime_percentage(@all_stop_services)
+    render json: @realtime_percentage
   end
 
   def train
@@ -59,6 +84,7 @@ class PtvController < ApplicationController
     return all_route_info_array
     
   end
+  
   
   
 end
