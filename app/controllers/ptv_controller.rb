@@ -1,4 +1,21 @@
 class PtvController < ApplicationController
+  
+  def test_stop_finding
+    @stop_info = []
+    stop_hash_1 = {:route => "246", :stop => "Richmond Railway Station/Punt Rd", :operator => "Transdev", :diva_id => 12371, :mode => 2}
+    stop_hash_2 = {:route => "900", :stop => "Huntingdale Stations/Huntingdale Rd (Oakleigh)", :operator => "CDC, Ventura", :diva_id => 20679, :mode => 2}
+    stop_hash_3 = {:route => "411 / 412", :stop => "Trafalgar Ave/Merton St(Altona Meadows)", :operator => "CDC Altona", :diva_id => 15328, :mode => 2}
+    @stop_info << stop_hash_1
+    @stop_info << stop_hash_2
+    @stop_info << stop_hash_3
+    @realtime_present = []
+    api = set_api
+    @stop_info.each do |si|
+      @realtime_present << api.broad_next_departures(si[:mode], si[:diva_id])
+    end
+    #@data = get_stop_information(location_info)
+  end
+  
   def bus
     api = set_api
     return_rt = api.broad_next_departures(2, 22936)
@@ -90,6 +107,12 @@ class PtvController < ApplicationController
         all_route_info_array << route_hash
       end
       return all_route_info_array
+    end
+    
+    def get_stop_information(location_info)
+      all_stop_array = location_info[1]
+  
+      return all_stop_array
     end
   
 end

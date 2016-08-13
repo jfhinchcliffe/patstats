@@ -1,0 +1,14 @@
+
+<p>
+<% @stop_info.each do |si| %>
+  <p>
+    <%= si[:route] %>
+    <%= si[:stop] %>
+    <%= si[:operator] %>
+    <%= si[:diva_id] %>
+    <%= si[:mode] %>
+  </p>  
+<% end %>  
+
+</p>
+RTP: <%= @real_time_present %>
