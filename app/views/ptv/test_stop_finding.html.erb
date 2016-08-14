@@ -1,5 +1,6 @@
-
+<%= @val %>
 <p>
+  <%= @stop_info.count %>
 <% @stop_info.each do |si| %>
   <p>
     <%= si[:route] %>
@@ -11,4 +12,4 @@
 <% end %>  
 
 </p>
-RTP: <%= @real_time_present %>
+RTP: <%= @overall_percentage %>

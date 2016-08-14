@@ -2,18 +2,32 @@ class PtvController < ApplicationController
   
   def test_stop_finding
     @stop_info = []
+    #replace this with a list of bus routes to represent all operators
     stop_hash_1 = {:route => "246", :stop => "Richmond Railway Station/Punt Rd", :operator => "Transdev", :diva_id => 12371, :mode => 2}
     stop_hash_2 = {:route => "900", :stop => "Huntingdale Stations/Huntingdale Rd (Oakleigh)", :operator => "CDC, Ventura", :diva_id => 20679, :mode => 2}
     stop_hash_3 = {:route => "411 / 412", :stop => "Trafalgar Ave/Merton St(Altona Meadows)", :operator => "CDC Altona", :diva_id => 15328, :mode => 2}
     @stop_info << stop_hash_1
     @stop_info << stop_hash_2
     @stop_info << stop_hash_3
-    @realtime_present = []
+    real_time_present = []
     api = set_api
     @stop_info.each do |si|
-      @realtime_present << api.broad_next_departures(si[:mode], si[:diva_id])
+      mode = si[:mode]
+      stop_id = si[:diva_id]
+      real_time_present << get_mode_and_route_information(api.broad_next_departures(mode, stop_id))
+      #@real_time_present << api_info
     end
-    #@data = get_stop_information(location_info)
+    @real_time_status_of_services = []
+    real_time_present.each do |rtp|
+      @real_time_status_of_services << get_realtime_percentage(rtp)
+    end
+    overall_percentage = 0
+    @real_time_status_of_services.each do |rtsos|
+      overall_percentage += rtsos
+    end
+    overall_percentage = overall_percentage / @real_time_status_of_services.length
+    @val = real_time_up_or_down(overall_percentage, "Bus")
+    render json: @val
   end
   
   def bus
@@ -81,6 +95,22 @@ class PtvController < ApplicationController
         sentiment_colour = 'positive'
       end
       {'item' => [{'text' => "<div class='main-stat t-size-x72 #{sentiment_colour}' align='center'>#{realtime_percentage}%</div> <div class='t-size-x20' align='center'>#{mode} RT response %</div>"}]}
+    end
+    
+    def real_time_up_or_down(realtime_percentage, mode)
+      sentiment_colour = ""
+      status = ""
+      if realtime_percentage <= 10
+        sentiment_colour = 'negative'
+        status = "Down"
+      elsif realtime_percentage > 11 && realtime_percentage <= 30
+        sentiment_colour = ''
+        status = "Up"
+      elsif realtime_percentage > 31
+        sentiment_colour = 'positive'
+        status = "Up"
+      end
+      {'item' => [{'text' => "<div class='main-stat t-size-x72 #{sentiment_colour}' align='center'>#{status}!</div> <div class='t-size-x20' align='center'>#{mode} RT status</div>"}]}
     end
     
     def get_mode_and_route_information(api_info)
