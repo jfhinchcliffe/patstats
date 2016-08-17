@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :stops
   get 'pages/index'
 
   get 'ptv/bus'

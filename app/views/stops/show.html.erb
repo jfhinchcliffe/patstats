@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Routes serviced:</strong>
+  <%= @stop.routes_serviced %>
+</p>
+
+<p>
+  <strong>Stop name:</strong>
+  <%= @stop.stop_name %>
+</p>
+
+<p>
+  <strong>Operator:</strong>
+  <%= @stop.operator %>
+</p>
+
+<p>
+  <strong>Diva:</strong>
+  <%= @stop.diva_id %>
+</p>
+
+<p>
+  <strong>Mode:</strong>
+  <%= @stop.mode %>
+</p>
+
+<p>
+  <strong>Currently checked:</strong>
+  <%= @stop.currently_checked %>
+</p>
+
+<%= link_to 'Edit', edit_stop_path(@stop) %> |
+<%= link_to 'Back', stops_path %>

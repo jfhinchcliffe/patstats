@@ -11,12 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731040856) do
+ActiveRecord::Schema.define(version: 20160817044836) do
 
   create_table "api_calls", force: :cascade do |t|
     t.text     "api_call_return_value"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+  end
+
+  create_table "stops", force: :cascade do |t|
+    t.string   "routes_serviced"
+    t.string   "stop_name"
+    t.string   "operator"
+    t.string   "diva_id"
+    t.integer  "mode"
+    t.boolean  "currently_checked"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
 end

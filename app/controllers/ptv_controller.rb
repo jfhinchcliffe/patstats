@@ -2,20 +2,13 @@ class PtvController < ApplicationController
   
   def test_stop_finding
     @stop_info = []
-    #replace this with a list of bus routes to represent all operators
-    stop_hash_1 = {:route => "246", :stop => "Richmond Railway Station/Punt Rd", :operator => "Transdev", :diva_id => 12371, :mode => 2}
-    stop_hash_2 = {:route => "900", :stop => "Huntingdale Stations/Huntingdale Rd (Oakleigh)", :operator => "CDC, Ventura", :diva_id => 20679, :mode => 2}
-    stop_hash_3 = {:route => "411 / 412", :stop => "Trafalgar Ave/Merton St(Altona Meadows)", :operator => "CDC Altona", :diva_id => 15328, :mode => 2}
-    @stop_info << stop_hash_1
-    @stop_info << stop_hash_2
-    @stop_info << stop_hash_3
+    @stop_info = Stop.where("currently_checked = ?", true)
     real_time_present = []
     api = set_api
     @stop_info.each do |si|
-      mode = si[:mode]
-      stop_id = si[:diva_id]
+      mode = si.mode
+      stop_id = si.diva_id
       real_time_present << get_mode_and_route_information(api.broad_next_departures(mode, stop_id))
-      #@real_time_present << api_info
     end
     @real_time_status_of_services = []
     real_time_present.each do |rtp|
