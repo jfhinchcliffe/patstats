@@ -5,6 +5,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
 end
 gem 'capybara'
+gem 'devise'
 gem 'figaro'
 gem 'rails_12factor'
 gem 'rubocop', '~> 0.42.0', require: false

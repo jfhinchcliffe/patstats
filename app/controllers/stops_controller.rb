@@ -1,5 +1,6 @@
 class StopsController < ApplicationController
   before_action :set_stop, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /stops
   # GET /stops.json
