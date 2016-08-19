@@ -1,7 +1,7 @@
 <h2>Getting stop information</h2>
 <ul>
   <li>To get the DIVA ID, head to the <a href="http://ptv.vic.gov.au/next5">Next5</a> page on the PTV website and select a mode / direction / stop.</li>
-  <li>The DIVA ID will be in the URL of the stop. For example, on <a href="http://ptv.vic.gov.au/next5/diva/10002284/line/2041/3">31-Little Page St/Victoria Ave (Albert Park)</a>, the DIVA ID is 2041</li>
+  <li>The DIVA ID will be in the URL of the stop. For example, on <a href="http://ptv.vic.gov.au/next5/diva/2284">31-Little Page St/Victoria Ave (Albert Park)</a>, the DIVA ID is 2284</li>
 </ul>
 
 <%= form_for(@stop) do |f| %>
@@ -39,8 +39,8 @@
   </div>
   <div class="field">
     <%= f.label :currently_checked %><br>
-    <p>Disable this checkbox and it won't be checked each time the app hits the API</p>
     <%= f.check_box :currently_checked %>
+    <p><i>Disable this checkbox and it won't be checked each time the app hits the API</i></p>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -3,10 +3,8 @@
   <%= link_to 'Home', root_path %>
   |
   <%= link_to 'Bus Page', ptv_bus_path %>
-  <%= link_to 'Bus Feed', ptv_tram_check_path %>
   |
   <%= link_to 'Tram Page', ptv_tram_path %>
-  <%= link_to 'Tram Feed', ptv_tram_check_path %>
   |
   <%= link_to 'Bus Up or Down Feed', ptv_bus_up_or_down_path %>
   <%= link_to 'Tram Up or Down Feed', ptv_tram_up_or_down_path %>
@@ -14,7 +12,7 @@
   <%= link_to 'Weather Page', forecast_index_path %>
   <%= link_to 'Weather Feed', forecast_weather_check_path %>
   |
-  <%= link_to 'Stops Page', stops_path %>
+  <%= link_to 'Manage Stops Page', stops_path %>
   |
   <% if current_user %>
     <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>

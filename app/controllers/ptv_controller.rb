@@ -46,16 +46,30 @@ class PtvController < ApplicationController
   
   def bus
     api = set_api
-    return_rt = api.broad_next_departures(2, 22936)
-    @all_stop_services = get_mode_and_route_information(return_rt)
-    @realtime_percentage = get_realtime_percentage(@all_stop_services)
+    valid_buses = Stop.where(currently_checked: true, mode: 2)
+    all_bus_stops = []
+    valid_buses.each do |vb|
+      return_rt = api.broad_next_departures(vb.mode, vb.diva_id)
+      all_bus_stops << return_rt
+    end
+    @another_transport_array = []
+    all_bus_stops.each do |abs|
+      @another_transport_array << get_mode_and_route_information(abs)
+    end
   end
   
   def tram
     api = set_api
-    return_rt = api.broad_next_departures(1, 2097)
-    @all_stop_services = get_mode_and_route_information(return_rt)
-    @realtime_percentage = get_realtime_percentage(@all_stop_services)
+    valid_trams = Stop.where(currently_checked: true, mode: 1)
+    all_tram_stops = []
+    valid_trams.each do |vb|
+      return_rt = api.broad_next_departures(vb.mode, vb.diva_id)
+      all_tram_stops << return_rt
+    end
+    @another_transport_array = []
+    all_tram_stops.each do |abs|
+      @another_transport_array << get_mode_and_route_information(abs)
+    end
   end
   
   def train
