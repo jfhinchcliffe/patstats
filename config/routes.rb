@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get 'forecast/index'
   get 'forecast/weather_check'
   
-  get 'ptv/test_stop_finding'
+  get 'ptv/bus_up_or_down'
+  get 'ptv/tram_up_or_down'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

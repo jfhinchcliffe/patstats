@@ -1,8 +1,7 @@
 class PtvController < ApplicationController
   
-  def test_stop_finding
-    @stop_info = []
-    @stop_info = Stop.where("currently_checked = ?", true)
+  def bus_up_or_down
+    @stop_info = Stop.where(currently_checked: true, mode: 2)
     real_time_present = []
     api = set_api
     @stop_info.each do |si|
@@ -20,6 +19,28 @@ class PtvController < ApplicationController
     end
     overall_percentage = overall_percentage / @real_time_status_of_services.length
     @val = real_time_up_or_down(overall_percentage, "Bus")
+    render json: @val
+  end
+  
+  def tram_up_or_down
+    @stop_info = Stop.where(currently_checked: true, mode: 1)
+    real_time_present = []
+    api = set_api
+    @stop_info.each do |si|
+      mode = si.mode
+      stop_id = si.diva_id
+      real_time_present << get_mode_and_route_information(api.broad_next_departures(mode, stop_id))
+    end
+    @real_time_status_of_services = []
+    real_time_present.each do |rtp|
+      @real_time_status_of_services << get_realtime_percentage(rtp)
+    end
+    overall_percentage = 0
+    @real_time_status_of_services.each do |rtsos|
+      overall_percentage += rtsos
+    end
+    overall_percentage = overall_percentage / @real_time_status_of_services.length
+    @val = real_time_up_or_down(overall_percentage, "Tram")
     render json: @val
   end
   
